@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioHome: Life Support for Deep Space</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div id="game-container">
+        <div id="ui-overlay">
+            <div id="title-screen" class="screen active">
+                <h1>BioHome: Life Support for Deep Space</h1>
+                <p>NASA Space Apps Challenge 2025</p>
+                <button id="start-game">Start Mission</button>
+                <button id="view-leaderboard">Leaderboard</button>
+            </div>
+            
+            <div id="build-screen" class="screen">
+                <div id="build-header">
+                    <h2>Earth Configuration</h2>
+                    <div id="cost-display">Total Cost: $800M</div>
+                    <div id="mass-display">Total Mass: 0 tons</div>
+                </div>
+                
+                <div id="crew-selection">
+                    <h3>Crew Selection (1-6 members)</h3>
+                    <div id="crew-list"></div>
+                    <button id="add-crew">Add Crew Member</button>
+                </div>
+                
+                <div id="component-palette">
+                    <h3>Components</h3>
+                    <div class="component-item" data-type="algae-small">Algae Small ($5M)</div>
+                    <div class="component-item" data-type="algae-large">Algae Large ($7M)</div>
+                    <div class="component-item" data-type="hydroponics">Hydroponics Bay ($2M)</div>
+                    <div class="component-item" data-type="water-recycler">Water Recycler ($3M)</div>
+                    <div class="component-item" data-type="solar-panels">Solar Panels ($1M/m²)</div>
+                    <div class="component-item" data-type="food-processor">Food Processor ($4M)</div>
+                    <div class="component-item" data-type="thermal-control">Thermal Control ($2M)</div>
+                    <div class="component-item" data-type="humidity-reg">Humidity Regulator ($1.5M)</div>
+                    <div class="component-item" data-type="crew-quarters">Crew Quarters ($10M/crew)</div>
+                    <div class="component-item" data-type="experiment-module">Experiment Module ($3M)</div>
+                </div>
+                
+                <button id="launch-button" disabled>Launch Mission</button>
+            </div>
+            
+            <div id="simulation-screen" class="screen">
+                <div id="simulation-header">
+                    <h2>Mars Journey Simulation</h2>
+                    <div id="time-controls">
+                        <label>Time Speed:</label>
+                        <input type="range" id="time-speed" min="1" max="10" value="1">
+                        <span id="time-display">Day 1</span>
+                    </div>
+                </div>
+                
+                <div id="resource-gauges">
+                    <div class="gauge">
+                        <div class="gauge-label">Oxygen</div>
+                        <div class="gauge-circle" id="o2-gauge">
+                            <div class="gauge-value">21%</div>
+                        </div>
+                    </div>
+                    <div class="gauge">
+                        <div class="gauge-label">CO2</div>
+                        <div class="gauge-circle" id="co2-gauge">
+                            <div class="gauge-value">0.3%</div>
+                        </div>
+                    </div>
+                    <div class="gauge">
+                        <div class="gauge-label">Food</div>
+                        <div class="gauge-circle" id="food-gauge">
+                            <div class="gauge-value">2500 kcal</div>
+                        </div>
+                    </div>
+                    <div class="gauge">
+                        <div class="gauge-label">Water</div>
+                        <div class="gauge-circle" id="water-gauge">
+                            <div class="gauge-value">2.5L</div>
+                        </div>
+                    </div>
+                    <div class="gauge">
+                        <div class="gauge-label">Energy</div>
+                        <div class="gauge-circle" id="energy-gauge">
+                            <div class="gauge-value">7.5 kWh</div>
+                        </div>
+                    </div>
+                    <div class="gauge">
+                        <div class="gauge-label">Health</div>
+                        <div class="gauge-circle" id="health-gauge">
+                            <div class="gauge-value">100%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="crew-controls">
+                    <h3>Crew Management</h3>
+                    <div id="crew-dots"></div>
+                    <button id="spacewalk-button" disabled>Spacewalk (Engineer Only)</button>
+                    <div id="spacewalk-overlay" style="display: none;">
+                        <div id="spacewalk-timer">Time Remaining: 120s</div>
+                        <div id="spacewalk-health">Health: 100%</div>
+                        <button id="return-spacewalk">Return to Ship</button>
+                    </div>
+                </div>
+                
+                <div id="experiment-progress">
+                    <h3>Bio-Experiments</h3>
+                    <div id="experiment-list"></div>
+                </div>
+                
+                <div id="event-log">
+                    <h3>Mission Log</h3>
+                    <div id="log-entries"></div>
+                </div>
+            </div>
+            
+            <div id="game-over-screen" class="screen">
+                <h2 id="game-over-title">Mission Complete!</h2>
+                <div id="final-stats"></div>
+                <button id="submit-score">Submit Score</button>
+                <button id="restart-game">New Mission</button>
+            </div>
+            
+            <div id="leaderboard-screen" class="screen">
+                <h2>Leaderboard</h2>
+                <div id="leaderboard-list"></div>
+                <button id="back-to-menu">Back to Menu</button>
+            </div>
+        </div>
+        
+        <div id="p5-canvas-container"></div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
